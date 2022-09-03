@@ -14,7 +14,16 @@
   "applied_templates": [
     {
       "name": "copier-typescript-npm-sphinx",
-      "data": {},
+      "data": {
+        "package_name": "vercel-rollback",
+        "repo_name": "vercel-rollback",
+        "full_name": "Vercel Rollback",
+        "short_description": "CLI to rollback Vercel deployments",
+        "main_branch_name": "main",
+        "author": "Nick DeRobertis",
+        "repo_username": "nickderobertis",
+        "package_filename": "vercel-rollback"
+      },
       "version": "1e8bd4374603015620f378a948db1b6066d8b2a6",
       "add_mode": "local",
       "root": "."
