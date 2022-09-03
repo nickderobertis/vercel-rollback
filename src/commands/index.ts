@@ -1,10 +1,10 @@
 import { Command, Flags } from "@oclif/core";
-import { rollback } from "../main";
+import { rollback, RollbackDirection } from "../main";
 
 export default class VercelRollbackCommand extends Command {
   static description =
     "Rolls back the current production deployment to the previous one";
-  static usage = "<project id> [-t <token>]";
+  static usage = "<project id> [-t <token>] [-f | --forward]";
 
   static args = [{ name: "projectId" }];
 
@@ -16,6 +16,12 @@ export default class VercelRollbackCommand extends Command {
       required: false,
       default: process.env.VERCEL_API_TOKEN,
     }),
+    forward: Flags.boolean({
+      char: "f",
+      description: "Roll forward to the next deployment rather than back",
+      required: false,
+      default: false,
+    }),
   };
 
   async run(): Promise<void> {
@@ -25,6 +31,10 @@ export default class VercelRollbackCommand extends Command {
       throw new Error("No Vercel API token provided");
     }
 
-    await rollback(args.projectId, flags.token);
+    const direction = flags.forward
+      ? RollbackDirection.Forward
+      : RollbackDirection.Back;
+
+    await rollback(args.projectId, flags.token, direction);
   }
 }
